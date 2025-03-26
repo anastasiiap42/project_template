@@ -26,5 +26,8 @@ def read_from_file_pandas():
     Return:
     str: Content of the file
     """
-    df = pd.read_csv('data/input.txt', header=None)
-    return df[0][0]
+    try:
+        df = pd.read_csv('data/input.txt', header=None, sep='\0', engine='python')
+        return ' '.join(df[0].astype(str))
+    except pd.errors.EmptyDataError:
+        return ""
